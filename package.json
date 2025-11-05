@@ -1,0 +1,17 @@
+{
+  "name": "november_node",
+  "version": "1.0.0",
+  "description": "This is a node class code base",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "Peter Babs",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5"
+  }
+}
