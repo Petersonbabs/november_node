@@ -1,9 +1,12 @@
-// NPM: Is a package manager used to install, uninstalling, updating, manageing packages
-// --save-dev
-// npm install --save-dev @types/express
-
 const express = require("express")
+const productRouter = require("./routers/productRouter")
+const userRouter = require("./routers/userRouter")
+const authRouter = require("./routers/authRouter")
+const connectToDb = require("./config/mongodb")
+connectToDb()
+
 const app = express()
+app.use(express.json()) // Middleware: Every request will pass through app.use
 const products = [
     {
         "id": 1,
@@ -167,118 +170,18 @@ const products = [
     }
 ]
 
+// MVC R => Model, View, Controller, & Router
 
 // listen for a port number
 app.listen(5000, () => {
     console.log("Listening to port 5000")
 })
 
-// baseUrl: http://localhost:4000
-// endpoint: /products
-
-// app.method("/route", requestHandler)
-// app.method("/route", (req, res)=>{})
 
 app.get("/", (req, res) => {
     res.send("Welcome to node class") // text
 })
 
-
-
-// GET ALL PRODUCTS
-app.get("/products", (req, res) => {
-    const filterProducts = products.filter(product => product.price <= req.query.maxPrice || product.name.toLowerCase().includes(req.query.search.toLowerCase()))
-    res.status(200).json({
-        total: filterProducts.length,
-        filterProducts
-    }) // json
-})
-
-// POST PRODUCT
-app.post("/products", (req, res) => {
-    // console.log(req.query)
-    res.status(201).json({
-        success: true,
-        message: "New product addedd successfully"
-    })
-})
-
-// GET A SINGLE PRODUCT
-app.get("/products/:id", (req, res) => {
-    // make request to DB to find the product with this req.params.id
-    res.status(200).json({
-        success: true,
-        message: "product fetched successfully",
-        product: { name: "Nike shoe", price: 4000, id: req.params.id }
-    })
-})
-
-// params: parameters: Add data to yout URL path
-
-
-app.patch("/products/:productId", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "New product updated successfully",
-        product: { name: "Nike shoe", price: 4000, id: req.params.productId }
-    })
-})
-
-app.delete("/products/:id", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "New product deleted successfully"
-    })
-})
-
-app.put("/products/:id", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "New product updated successfully"
-    })
-})
-
-
-
-
-// POSTMAN WALKTHROUGH
-// Workspace
-// Collection:
-// Folder
-// Request:: (Method, requires url)
-// Environments
-
-// Request methods
-// Request params: Add data to yout URL path: example: get single product
-// Request query: Add data to yout URL path. Key=value pair /products?id=3: Get all product with filtering, sorting, pagination
-// Request body
-// Request headers
-
-// Response Status
-// Response Json
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// request object: Contains every info about the request that was made.
-// response object: Contains every methods for handling the response to a request that was made.
-// requestHandler is a function that handle a request and also responds back
-// (req, res)=>{}
+app.use("/api/products", productRouter)
+app.use("/api/users", userRouter)
+app.use("/api/auth", authRouter)

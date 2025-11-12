@@ -197,11 +197,13 @@ app.get("/products", (req, res) => {
 // POST PRODUCT
 app.post("/products", (req, res) => {
     // console.log(req.query)
+    console.log(req.body)
     res.status(201).json({
         success: true,
         message: "New product addedd successfully"
     })
 })
+
 
 // GET A SINGLE PRODUCT
 app.get("/products/:id", (req, res) => {
