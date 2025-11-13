@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel")
 
+// CRUD
+
 const signupHandler = async (req, res) => {
     try {
         const user = await userModel.create(req.body)
