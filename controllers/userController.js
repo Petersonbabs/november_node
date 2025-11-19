@@ -88,6 +88,7 @@ const getUserById = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
     const { email } = req.query
+    // /api/user/details?email=test@dev.com
     try {
         const user = await userModel.findOne({ email })
         if (!user) {
