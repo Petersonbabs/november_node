@@ -1,20 +1,10 @@
 const express = require("express")
+const { addNewProduct, fetchProducts } = require("../controllers/productController")
+const isLoggedIn = require("../middlewares/isLoggedIn")
 const productRouter = express.Router()
 
-productRouter.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "All products fetched"
-    })
-})
-
-productRouter.post("/dd", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "ksisysb shsjh jhbsva jajsgh"
-    })
-})
-
+productRouter.post("/", isLoggedIn, addNewProduct)
+productRouter.get("/all", fetchProducts)
 module.exports = productRouter
 
 // default

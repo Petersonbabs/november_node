@@ -12,12 +12,20 @@ app.use(express.json()) // Middleware: Every request will pass through app.use
 
 // MVC R => Model, View, Controller, & Router
 
+// MIDDLEWARE => function that can access req, res, next
+// 1. Access and modify the request object
+// 2. Access and use the response object
+// 3. Transfer the request-chain to another middleware or final request handler
+
+
+
 // listen for a port number
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
     console.log("Listening to port")
 })
+
 
 
 app.get("/", (req, res) => {

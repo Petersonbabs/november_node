@@ -1,0 +1,1 @@
+// confirm if the user (req.user) is a seller
