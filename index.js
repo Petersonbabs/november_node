@@ -5,10 +5,16 @@ const productRouter = require("./routers/productRouter")
 const userRouter = require("./routers/userRouter")
 const authRouter = require("./routers/authRouter")
 const connectToDb = require("./config/mongodb")
+const cors = require("cors")
 connectToDb()
 
 const app = express()
 app.use(express.json()) // Middleware: Every request will pass through app.use
+// app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:5174"],
+    methods: ["GET", "POST"],
+}))
 
 // MVC R => Model, View, Controller, & Router
 
