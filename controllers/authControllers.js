@@ -1,11 +1,13 @@
 const userModel = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const sendWelcomeEmail = require("../emailTemplates/welcomeEmail")
+const sendVerificationEmail = require("../emailTemplates/verificationEmail")
 
 // CRUD
 
 const signupHandler = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, fullName } = req.body
     try {
         // check if email already exist
         const existingUser = await userModel.findOne({ email })
@@ -27,6 +29,10 @@ const signupHandler = async (req, res) => {
                 user
             })
         }
+
+        // send welcome email
+        sendWelcomeEmail(fullName, email)
+        sendVerificationEmail(fullName, email)
 
         res.status(201).json({
             success: true,

@@ -5,6 +5,7 @@ const productRouter = require("./routers/productRouter")
 const userRouter = require("./routers/userRouter")
 const authRouter = require("./routers/authRouter")
 const connectToDb = require("./config/mongodb")
+require("./config/nodemailer")
 const cors = require("cors")
 connectToDb()
 
